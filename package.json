@@ -2,6 +2,7 @@
   "name": "page-builder",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://bienhieu96.github.io/page-builder/",
   "dependencies": {
     "@craftjs/core": "^0.2.0-beta.8",
     "@craftjs/layers": "^0.2.0-beta.8",
@@ -17,6 +18,7 @@
     "classnames": "^2.3.2",
     "copy-to-clipboard": "^3.3.2",
     "debounce": "^1.2.1",
+    "gh-pages": "^4.0.0",
     "interactjs": "^1.10.17",
     "lzutf8": "^0.6.3",
     "material-ui-color-picker": "^3.5.1",
@@ -37,7 +39,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

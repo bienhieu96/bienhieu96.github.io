@@ -211,7 +211,7 @@ function PageEditor() {
               <Element
                 canvas
                 is={Container}
-                width="auto"
+                width="1024px"
                 height="auto"
                 background={{ r: 255, g: 255, b: 255, a: 1 }}
                 padding={["40", "40", "40", "40"]}
