@@ -18,20 +18,19 @@ export const Toolbar = () => {
   });
 
   return (
-    <div className="py-1 h-full">
+    <div className="toolbar-container ">
       {active && related.toolbar && React.createElement(related.toolbar)}
       {!active && (
         <div
-          className="px-5 py-2 flex flex-col items-center h-full justify-center text-center"
+          className="toolbar"
           style={{
             color: 'rgba(0, 0, 0, 0.5607843137254902)',
             fontSize: '11px',
           }}
         >
-          <h2 className="pb-1">Click on a component to start editing.</h2>
+          <h2 style={{paddingBottom: 1}}>Chọn một thành phần để chỉnh sửa.</h2>
           <h2>
-            You could also double click on the layers below to edit their names,
-            like in Photoshop
+            Hoặc click đúp vào một lớp bên dưới để chỉnh sửa
           </h2>
         </div>
       )}

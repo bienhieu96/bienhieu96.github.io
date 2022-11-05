@@ -1,7 +1,7 @@
 import React from "react";
 
 import { capitalize, weightDescription } from "../../../utils/text";
-import { ToolbarSection, ToolbarItem } from "../../editor";
+import { ToolbarSection, ToolbarItem, ToolbarTextInput } from "../../editor";
 import { ToolbarRadio } from "../../editor/Toolbar/ToolbarRadio";
 
 export const TextSettings = () => {
@@ -72,6 +72,14 @@ export const TextSettings = () => {
           propKey="shadow"
           type="slider"
           label="Shadow"
+        />
+      </ToolbarSection>
+      <ToolbarSection title={'Class'}>
+      <ToolbarItem
+          full={true}
+          propKey="customClass"
+          type="text"
+          label="class"
         />
       </ToolbarSection>
     </React.Fragment>

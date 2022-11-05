@@ -1,0 +1,51 @@
+$bg-primary: #1b2548;
+$bg-primary-dark: #283046;
+
+body.unica {
+  .sidebar-container {
+    width: 16%;
+    height: 100%;
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background-color: $bg-primary;
+    }
+  }
+  
+  .sidebar-item {
+    display: flex;
+    flex-direction: column;
+    
+    .header1 {
+      display: flex;
+      align-items: center;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      cursor: pointer;
+      background-color: $bg-primary-dark;
+      .header1 :last-child {
+        border-bottom-width: 0px;
+      }
+    }
+    .title-container {
+      flex: 1 1 0%;
+      display: flex;
+      align-items: center;
+    
+      h2 {
+        font-size: 0.75rem;
+        line-height: 1rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: white;
+      }
+    }
+  }
+  .sidebar-child {
+    width: 100%;
+    flex: 1 1 0%;
+    overflow: auto;
+  }
+  
+}

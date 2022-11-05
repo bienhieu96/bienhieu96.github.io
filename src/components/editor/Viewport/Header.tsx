@@ -1,16 +1,18 @@
-import { useEditor } from '@craftjs/core';
-import { Tooltip } from '@material-ui/core';
-import cx from 'classnames';
-import React from 'react';
-import styled from 'styled-components';
+import { useEditor } from "@craftjs/core";
+import { Tooltip } from "@material-ui/core";
+import cx from "classnames";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
-import Checkmark from '../../../assets/icons/check.svg';
-import Customize from '../../../assets/icons/customize.svg';
-import RedoSvg from '../../../assets/icons/redo.svg';
-import UndoSvg from '../../../assets/icons/undo.svg';
-
-import copy from 'copy-to-clipboard';
-import lz from 'lzutf8';
+import copy from "copy-to-clipboard";
+import lz from "lzutf8";
+import {
+  UndoOutlined,
+  RedoOutlined,
+  ExportOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
+import { Button, Input, Modal } from "antd";
 
 const HeaderDiv = styled.div`
   width: 100%;
@@ -44,7 +46,6 @@ const Item = styled.a<{ disabled?: boolean }>`
   svg {
     width: 20px;
     height: 20px;
-    fill: #707070;
   }
   ${(props) =>
     props.disabled &&
@@ -55,47 +56,98 @@ const Item = styled.a<{ disabled?: boolean }>`
 `;
 
 export const Header = () => {
-  const { enabled, canUndo, canRedo, actions } = useEditor((state, query) => ({
-    enabled: state.options.enabled,
-    canUndo: query.history.canUndo(),
-    canRedo: query.history.canRedo(),
-  }));
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [scripts, setScripts] = useState([]);
+  const { enabled, canUndo, canRedo, actions, query } = useEditor(
+    (state, query) => ({
+      enabled: state.options.enabled,
+      canUndo: query.history.canUndo(),
+      canRedo: query.history.canRedo(),
+    })
+  );
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://cdn.tailwindcss.com";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
-    <HeaderDiv className="header text-white transition w-full">
-      <div className="items-center flex w-full px-4 justify-end">
+    <HeaderDiv className="transition header-container">
+      <div className="header">
         {enabled && (
-          <div className="flex-1 flex">
+          <div style={{ display: "flex" }}>
             <Tooltip title="Undo" placement="bottom">
               <Item disabled={!canUndo} onClick={() => actions.history.undo()}>
-                {/* <UndoSvg /> */}Undo
+                {/* <UndoSvg /> */}
+                <UndoOutlined style={{color: `${canUndo ? 'white' : 'wheat'}`}}/>
               </Item>
             </Tooltip>
             <Tooltip title="Redo" placement="bottom">
               <Item disabled={!canRedo} onClick={() => actions.history.redo()}>
-                {/* <RedoSvg /> */}Redo
+                {/* <RedoSvg /> */}
+                <RedoOutlined style={{color: `${canRedo ? 'white' : 'wheat'}`}}/>
+              </Item>
+            </Tooltip>
+            <Tooltip title="Export" placement="bottom">
+              <Item
+                onClick={() => {
+                  const json = query.serialize();
+                  copy(json);
+                }}
+              >
+                <ExportOutlined />
+              </Item>
+            </Tooltip>
+            <Tooltip title="Load" placement="bottom">
+              <Item
+                onClick={() => {
+                  const json = query.serialize();
+                  copy(lz.encodeBase64(lz.compress(json)));
+                }}
+              >
+                <UploadOutlined />
+              </Item>
+            </Tooltip>
+            <Tooltip title="Link" placement="bottom">
+              <Item onClick={showModal}>
+                <UploadOutlined />
               </Item>
             </Tooltip>
           </div>
         )}
-        <div className="flex">
+        <div className="logo">Page Builder</div>
+        <div style={{ display: "flex" }}>
           <Btn
-            className={cx([
-              'transition cursor-pointer',
-              {
-                'bg-green-400': enabled,
-                'bg-primary': !enabled,
-              },
-            ])}
+            className={`transition button ${enabled ? 'button--enable' : 'button--disable'}`}
             onClick={() => {
               actions.setOptions((options) => (options.enabled = !enabled));
             }}
           >
             {/* {enabled ? <Checkmark /> : <Customize />} */}
-            {enabled ? 'Finish Editing' : 'Edit'}
+            {enabled ? "Hoàn thành" : "Chỉnh sửa"}
           </Btn>
         </div>
       </div>
+      <Modal
+        title="Basic Modal"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Input placeholder="" />
+      </Modal>
     </HeaderDiv>
   );
 };

@@ -67,6 +67,7 @@ Button.craft = {
       textAlign: 'center',
     },
   },
+  custom: {},
   related: {
     toolbar: ButtonSettings,
   },

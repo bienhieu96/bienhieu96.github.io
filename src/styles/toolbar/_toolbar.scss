@@ -1,0 +1,24 @@
+$bg-primary: #1b2548;
+
+body.unica {
+    .toolbar-container {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        height: 100%;
+        background-color: $bg-primary;
+        .toolbar{
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            justify-content: center;
+            text-align: center;
+            background-color: $bg-primary;
+            h2 {
+                color: white;
+            }
+        }
+    }
+}

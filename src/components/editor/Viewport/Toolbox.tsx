@@ -1,16 +1,15 @@
 import { Element, useEditor } from '@craftjs/core';
 import { Tooltip } from '@material-ui/core';
-import React from 'react';
 import styled from 'styled-components';
 
-import ButtonSvg from '../../../assets/icons/button.svg';
-import SquareSvg from '../../../assets/icons/rectangle.svg';
-import TypeSvg from '../../../assets/icons/text.svg';
-import YoutubeSvg from '../../../assets/icons/video-line.svg';
 import { Button } from '../../selectors/Button';
 import { Container } from '../../selectors/Container';
 import { Text } from '../../selectors/Text';
 import { Video } from '../../selectors/Video';
+import {YoutubeFilled, BorderOutlined, FileImageFilled, LinkOutlined} from '@ant-design/icons'
+import { Image } from 'src/components/selectors/Image';
+import { Link } from 'src/components/selectors/Link';
+
 
 const ToolboxDiv = styled.div<{ enabled: boolean }>`
   transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
@@ -22,7 +21,6 @@ const Item = styled.a<{ move?: boolean }>`
   svg {
     width: 22px;
     height: 22px;
-    fill: #707070;
   }
   ${(props) =>
     props.move &&
@@ -42,9 +40,9 @@ export const Toolbox = () => {
   return (
     <ToolboxDiv
       enabled={enabled && enabled}
-      className="toolbox transition w-12 h-full flex flex-col bg-white"
+      className="toolbox-container transition"
     >
-      <div className="flex flex-1 flex-col items-center pt-3">
+      <div className="toolbox">
         <div
           ref={(ref) =>
             create(
@@ -61,8 +59,8 @@ export const Toolbox = () => {
           }
         >
           <Tooltip title="Container" placement="right">
-            <Item className="m-2 pb-2 cursor-pointer block" move>
-              {/* <SquareSvg /> */}Square
+            <Item className="toolbox-item" move>
+              {/* <SquareSvg /> */}<BorderOutlined style={{color: '#fff'}}/>
             </Item>
           </Tooltip>
         </div>
@@ -72,22 +70,36 @@ export const Toolbox = () => {
           }
         >
           <Tooltip title="Text" placement="right">
-            <Item className="m-2 pb-2 cursor-pointer block" move>
-              {/* <TypeSvg /> */}Text
+            <Item className="toolbox-item" move>
+              {/* <TypeSvg /> */}T
             </Item>
           </Tooltip>
         </div>
         <div ref={(ref) => create(ref, <Button />)}>
           <Tooltip title="Button" placement="right">
-            <Item className="m-2 pb-2 cursor-pointer block" move>
-              {/* <ButtonSvg /> */}Button
+            <Item className="toolbox-item" move>
+              {/* <ButtonSvg /> */} Button
             </Item>
           </Tooltip>
         </div>
         <div ref={(ref) => create(ref, <Video />)}>
           <Tooltip title="Video" placement="right">
-            <Item className="m-2 pb-2 cursor-pointer block" move>
-              {/* <YoutubeSvg /> */}Youtube
+            <Item className="toolbox-item" move>
+              {/* <YoutubeSvg /> */}<YoutubeFilled className='text-white'/>
+            </Item>
+          </Tooltip>
+        </div>
+        <div ref={(ref) => create(ref, <Image />)}>
+          <Tooltip title="Image" placement="right">
+            <Item className="toolbox-item" move>
+              {/* <YoutubeSvg /> */}<FileImageFilled />
+            </Item>
+          </Tooltip>
+        </div>
+        <div ref={(ref) => create(ref, <Link />)}>
+          <Tooltip title="Link" placement="right">
+            <Item className="toolbox-item" move>
+              {/* <YoutubeSvg /> */}<LinkOutlined />
             </Item>
           </Tooltip>
         </div>

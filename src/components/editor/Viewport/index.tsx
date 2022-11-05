@@ -6,7 +6,9 @@ import { Header } from "./Header";
 import { Sidebar } from "./Sidebar";
 import { Toolbox } from "./Toolbox";
 
-export const Viewport: React.FC<{ children: React.ReactNode }> = ({children}) => {
+export const Viewport: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const {
     enabled,
     connectors,
@@ -38,26 +40,18 @@ export const Viewport: React.FC<{ children: React.ReactNode }> = ({children}) =>
   }, [setOptions]);
 
   return (
-    <div className="viewport">
-      <div
-        className={cx(["flex h-full overflow-hidden flex-row w-full fixed"])}
-      >
-        <Toolbox />
-        <div className="page-container flex flex-1 h-full flex-col">
-          <Header />
-          <div
-            className={cx([
-              "craftjs-renderer flex-1 h-full w-full transition pb-8 overflow-auto",
-              {
-                "bg-renderer-gray": enabled,
-              },
-            ])}
-            ref={(ref) => connectors.select(connectors.hover(ref, null), null)}
-          >
-            <div className="relative flex-col flex items-center pt-8">
-              {children}
-            </div>
-            <div
+    <div className="viewport-container">  
+      <Toolbox />
+      <div className="page-container viewport">
+        <Header />
+        <div
+          className={`craftjs-renderer content ${!enabled ? 'content--enable' : ''}`}
+          ref={(ref) => connectors.select(connectors.hover(ref, null), null)}
+        >
+          <div className="childrend">
+            {children}
+          </div>
+          {/* <div
               className={
                 "flex items-center justify-center w-full pt-6 text-xs text-light-gray-2"
               }
@@ -65,11 +59,10 @@ export const Viewport: React.FC<{ children: React.ReactNode }> = ({children}) =>
               <a href="https://www.netlify.com">
                 This site is powered by Netlify
               </a>
-            </div>
-          </div>
+            </div> */}
         </div>
-        <Sidebar />
       </div>
+      <Sidebar />
     </div>
   );
 };

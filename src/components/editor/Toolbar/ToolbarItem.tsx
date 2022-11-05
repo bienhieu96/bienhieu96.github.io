@@ -108,7 +108,7 @@ export const ToolbarItem = ({
         ) : type === 'slider' ? (
           <>
             {props.label ? (
-              <h4 className="text-sm text-light-gray-2">{props.label}</h4>
+              <h4 className="text-sm text-light-gray-2 text-white">{props.label}</h4>
             ) : null}
             <SliderStyled
               value={parseInt(value) || 0}
@@ -130,7 +130,7 @@ export const ToolbarItem = ({
         ) : type === 'radio' ? (
           <>
             {props.label ? (
-              <h4 className="text-sm text-light-gray-2">{props.label}</h4>
+              <h4 className="text-sm text-light-gray-2 text-white">{props.label}</h4>
             ) : null}
             <RadioGroup
               value={value || 0}

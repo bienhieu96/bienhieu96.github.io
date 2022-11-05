@@ -1,0 +1,35 @@
+$bg-primary: #1b2548;
+
+body.unica {
+  .header-container {
+    color: white;
+    width: 100%;
+    background-color: $bg-primary;
+    .header {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      justify-content: space-between;
+      background-color: $bg-primary;
+    }
+    .logo {
+        color: white;
+        font-weight: 700;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        text-transform: uppercase;
+    }
+    .button {
+        cursor: pointer;
+        font-weight: 700;
+        &--enable {
+            background-color: rgb(34 197 94);
+        }
+        &--disable {
+            background-color: rgb(99 102 241);
+        }
+    }
+  }
+}
