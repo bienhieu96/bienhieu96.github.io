@@ -57,7 +57,6 @@ const Item = styled.a<{ disabled?: boolean }>`
 
 export const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [scripts, setScripts] = useState([]);
   const { enabled, canUndo, canRedo, actions, query } = useEditor(
     (state, query) => ({
       enabled: state.options.enabled,

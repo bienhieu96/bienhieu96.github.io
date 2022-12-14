@@ -1,20 +1,37 @@
-import { Element, useEditor } from '@craftjs/core';
-import { Tooltip } from '@material-ui/core';
-import styled from 'styled-components';
+import { Element, useEditor } from "@craftjs/core";
+import { Tooltip } from "@material-ui/core";
+import styled from "styled-components";
 
-import { Button } from '../../selectors/Button';
-import { Container } from '../../selectors/Container';
-import { Text } from '../../selectors/Text';
-import { Video } from '../../selectors/Video';
-import {YoutubeFilled, BorderOutlined, FileImageFilled, LinkOutlined} from '@ant-design/icons'
-import { Image } from 'src/components/selectors/Image';
-import { Link } from 'src/components/selectors/Link';
+import { Button } from "../../selectors/Button";
+import { Container } from "../../selectors/Container";
+import { Text } from "../../selectors/Text";
+import { Video } from "../../selectors/Video";
+import {
+  YoutubeFilled,
+  BorderOutlined,
+  LinkOutlined,
+} from "@ant-design/icons";
+import { Image } from "src/components/selectors/Image";
+import { Link } from "src/components/selectors/Link";
+import { Slide } from "src/components/selectors/Slide";
+import { TabsComponent } from "src/components/selectors/Tabs";
+import { Embeded } from "src/components/selectors/Embeded";
+
+import TabIcon from '@mui/icons-material/Tab';
+import SlideshowIcon from '@mui/icons-material/Slideshow';
+import SmartButtonIcon from '@mui/icons-material/SmartButton';
+import TextFieldsIcon from '@mui/icons-material/TextFields';
+import HtmlIcon from '@mui/icons-material/Html';
+
+import ImageIcon from '@mui/icons-material/Image';
+import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
+import { CustomHTML } from "src/components/selectors/CustomHTML";
 
 
 const ToolboxDiv = styled.div<{ enabled: boolean }>`
   transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-  ${(props) => (!props.enabled ? `width: 0;` : '')}
-  ${(props) => (!props.enabled ? `opacity: 0;` : '')}
+  ${(props) => (!props.enabled ? `width: 0;` : "")}
+  ${(props) => (!props.enabled ? `opacity: 0;` : "")}
 `;
 
 const Item = styled.a<{ move?: boolean }>`
@@ -60,7 +77,8 @@ export const Toolbox = () => {
         >
           <Tooltip title="Container" placement="right">
             <Item className="toolbox-item" move>
-              {/* <SquareSvg /> */}<BorderOutlined style={{color: '#fff'}}/>
+              {/* <SquareSvg /> */}
+              <BorderOutlined style={{ color: "#fff" }} />
             </Item>
           </Tooltip>
         </div>
@@ -71,35 +89,63 @@ export const Toolbox = () => {
         >
           <Tooltip title="Text" placement="right">
             <Item className="toolbox-item" move>
-              {/* <TypeSvg /> */}T
+              <TextFieldsIcon />
             </Item>
           </Tooltip>
         </div>
         <div ref={(ref) => create(ref, <Button />)}>
           <Tooltip title="Button" placement="right">
             <Item className="toolbox-item" move>
-              {/* <ButtonSvg /> */} Button
+              <SmartButtonIcon />
             </Item>
           </Tooltip>
         </div>
         <div ref={(ref) => create(ref, <Video />)}>
           <Tooltip title="Video" placement="right">
             <Item className="toolbox-item" move>
-              {/* <YoutubeSvg /> */}<YoutubeFilled className='text-white'/>
+              <YoutubeFilled className="text-white" />
             </Item>
           </Tooltip>
         </div>
         <div ref={(ref) => create(ref, <Image />)}>
           <Tooltip title="Image" placement="right">
             <Item className="toolbox-item" move>
-              {/* <YoutubeSvg /> */}<FileImageFilled />
+              <ImageIcon />
             </Item>
           </Tooltip>
         </div>
         <div ref={(ref) => create(ref, <Link />)}>
           <Tooltip title="Link" placement="right">
             <Item className="toolbox-item" move>
-              {/* <YoutubeSvg /> */}<LinkOutlined />
+              <LinkOutlined />
+            </Item>
+          </Tooltip>
+        </div>
+        <div ref={(ref) => create(ref, <Slide />)}>
+          <Tooltip title="Slide" placement="right">
+            <Item className="toolbox-item" move>
+              <SlideshowIcon />
+            </Item>
+          </Tooltip>
+        </div>
+        <div ref={(ref) => create(ref, <TabsComponent />)}>
+          <Tooltip title="Tabs" placement="right">
+            <Item className="toolbox-item" move>
+              <TabIcon />
+            </Item>
+          </Tooltip>
+        </div>
+        <div ref={(ref) => create(ref, <Embeded />)}>
+          <Tooltip title="Embed" placement="right">
+            <Item className="toolbox-item" move>
+              <IntegrationInstructionsIcon />
+            </Item>
+          </Tooltip>
+        </div>
+        <div ref={(ref) => create(ref, <CustomHTML />)}>
+          <Tooltip title="Custom Code" placement="right">
+            <Item className="toolbox-item" move>
+              <HtmlIcon />
             </Item>
           </Tooltip>
         </div>

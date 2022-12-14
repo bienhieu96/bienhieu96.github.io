@@ -1,145 +1,3 @@
-// //@ts-nocheck
-
-// import React from "react";
-
-// import Interactable from "../../components/Interactable";
-// import { ButtonComponent } from "../../components/ButtonComponent";
-// import TopMenu from "../../components/TopMenu";
-// import SideMenu from "../../components/SideMenu";
-
-// export default class Editor extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     // this.handleDrop = this.handleDrop.bind(this)
-
-//     this.handleDrop = this.handleDrop.bind(this);
-//     this.onDragComponent = this.onDragComponent.bind(this);
-//     this.state = {
-//       droppedItems: [],
-//       attributes: [
-//         {
-//           width: "100px",
-//         },
-//         {
-//           width: "100px",
-//         },
-//       ],
-//     };
-//     this._ref = React.createRef();
-//   }
-
-//   callback(name: string | undefined) {
-//     console.log("DROP", name);
-//   }
-
-//   handleDrop(e) {
-//     console.log(this.state.attributes);
-//   }
-
-//   handleChange(e, i) {
-//     const { attributes } = this.state;
-
-//     const obj = { ...attributes };
-//     console.log(e);
-
-//     switch (e.target.id) {
-//       case "bg-color":
-//         Object.assign(obj, { backgroundColor: e.target.value });
-//         break;
-//       case "width":
-//         Object.assign(obj, { width: `${e.target.value}px` });
-//         break;
-//       case "height":
-//         Object.assign(obj, { height: `${e.target.value}px` });
-//         break;
-//       default:
-//         break;
-//     }
-
-//     this.setState({ attributes: obj });
-//     console.log(attributes);
-//   }
-//   onDragComponent() {
-//     const { attributes } = this.state;
-//     let arrComponent = attributes;
-//     arrComponent.push({ width: "100px" });
-//     this.setState({attributes: arrComponent})
-//     console.log(attributes)
-//   }
-//   render() {
-//     const that = this;
-//     const { attributes } = this.state;
-
-//     return (
-//       <div className="App w-full relative">
-//         <div className="flex flex-col w-5/6 absolute">
-//           <TopMenu />
-//           <div className="w-full">
-//             <Interactable
-//               dropzone={true}
-//               dropzoneOptions={{
-//                 accept: ".drag-item",
-//                 overlap: 0.75,
-//                 ondropactivate: function (event) {
-//                   event.target.classList.add("drop-active");
-//                 },
-
-//                 ondragenter: function (event) {
-//                   const draggableElement = event.relatedTarget,
-//                     dropzoneElement = event.target;
-//                   dropzoneElement.classList.add("drop-target");
-//                   draggableElement.classList.add("can-drop");
-//                   draggableElement.textContent = "Dragged in";
-//                 },
-
-//                 ondragleave: function (event) {
-//                   event.target.classList.remove("drop-target");
-//                   event.relatedTarget.classList.remove("can-drop");
-//                   event.relatedTarget.textContent = "Dragged out";
-//                 },
-
-//                 ondrop: function (event) {
-//                   that.handleDrop(event);
-//                   event.relatedTarget.textContent = "Dropped";
-//                 },
-
-//                 ondropdeactivate: function (event) {
-//                   event.target.classList.remove("drop-active");
-//                   event.target.classList.remove("drop-target");
-//                 },
-//               }}
-//             >
-//               <div className="dropzone" id="outer-dropzone">
-//                 #outer-dropzone
-//                 {attributes.map((item) => {
-//                   return (
-//                     <ButtonComponent
-//                       ref1={this._ref}
-//                       style={item}
-//                       onDrop={(event) => {
-//                         this.handleDrop();
-//                       }}
-//                     >
-//                       <a>Drag Item 1</a>
-//                     </ButtonComponent>
-//                   );
-//                 })}
-//               </div>
-//             </Interactable>
-//           </div>
-//         </div>
-//         <div className="">
-//           <SideMenu
-//             handleChange={(e) => this.handleChange(e)}
-//             onDragEnd={this.onDragComponent}
-//           />
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-// pages/index.js
 import { Editor, Frame, Element } from "@craftjs/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import React, { useEffect } from "react";
@@ -153,9 +11,11 @@ import { Custom3, Custom3BtnDrop } from "../../components/selectors/Custom3";
 import { Video } from "../../components/selectors/Video";
 import { Image } from "src/components/selectors/Image";
 import { Link } from "src/components/selectors/Link";
+import { TabsComponent } from "src/components/selectors/Tabs";
 import { createTheme } from "@material-ui/core";
-import StyledFrame from "react-styled-frame";
-import { createPortal } from "react-dom";
+import { Slide } from "src/components/selectors/Slide";
+import { Embeded } from "src/components/selectors/Embeded";
+import { CustomHTML } from "src/components/selectors/CustomHTML";
 
 const theme = createTheme({
   typography: {
@@ -202,19 +62,23 @@ function PageEditor() {
             Video,
             Image,
             Link,
+            Slide,
+            TabsComponent,
+            Embeded,
+            CustomHTML
           }}
           enabled={false}
           onRender={RenderNode}
         >
           <Viewport>
-            <Frame>
+            <Frame> 
               <Element
                 canvas
                 is={Container}
                 width="1024px"
-                height="auto"
+                height="1960px"
                 background={{ r: 255, g: 255, b: 255, a: 1 }}
-                padding={["40", "40", "40", "40"]}
+                padding={["5", "5", "5", "5"]}
                 custom={{ displayName: "App", links: [], scripts: [] }}
               />
             </Frame>

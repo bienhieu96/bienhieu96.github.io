@@ -45,9 +45,9 @@ Image.craft = {
   displayName: "Image",
   props: {
     margin: ["5", "0", "5", "0"],
-    url: `https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg`,
-    width: `100`,
-    height: `100`,
+    url: `https://picsum.photos/` + (Math.round(Math.random() * 100) + 1000),
+    width: `100%`,
+    height: `100%`,
   },
   related: {
     toolbar: ImageSettings,

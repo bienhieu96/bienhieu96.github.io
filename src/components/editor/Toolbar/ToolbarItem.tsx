@@ -80,7 +80,7 @@ export const ToolbarItem = ({
   ...props
 }: ToolbarItemProps) => {
   const {
-    actions: { setProp },
+    actions: {  setProp },
     propValue,
   } = useNode((node) => ({
     propValue: node.data.props[propKey],
@@ -89,7 +89,7 @@ export const ToolbarItem = ({
 
   return (
     <Grid item xs={full ? 12 : 6}>
-      <div className="mb-2">
+      <div>
         {['text', 'color', 'bg', 'number'].includes(type) ? (
           <ToolbarTextInput
             {...props}
@@ -108,7 +108,7 @@ export const ToolbarItem = ({
         ) : type === 'slider' ? (
           <>
             {props.label ? (
-              <h4 className="text-sm text-light-gray-2 text-white">{props.label}</h4>
+              <h4 className="text-sm text-white">{props.label}</h4>
             ) : null}
             <SliderStyled
               value={parseInt(value) || 0}

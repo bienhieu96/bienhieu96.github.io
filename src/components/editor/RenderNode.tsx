@@ -93,7 +93,64 @@ export const RenderNode = ({ render }) => {
         .removeEventListener('scroll', scroll);
     };
   }, [scroll]);
+  const getCloneTree = useCallback((idToClone) => {
+    const tree = query.node(idToClone).toNodeTree();
+    const newNodes = {};
 
+    const changeNodeId = (node, newParentId) => {
+      const newNodeId = 'asdasdas';
+      const childNodes = node.data.nodes.map((childId) =>
+        changeNodeId(tree.nodes[childId], newNodeId)
+      );
+      const linkedNodes = Object.keys(node.data.linkedNodes).reduce(
+        (accum, id) => {
+          const newNodeId1 = changeNodeId(
+            tree.nodes[node.data.linkedNodes[id]],
+            newNodeId
+          );
+          return {
+            ...accum,
+            [id]: newNodeId1
+          };
+        },
+        {}
+      );
+
+      let tmpNode = {
+        ...node,
+        id: newNodeId,
+        data: {
+          ...node.data,
+          parent: newParentId || node.data.parent,
+          nodes: childNodes,
+          linkedNodes
+        }
+      };
+      let freshnode = query.parseFreshNode(tmpNode).toNode();
+      newNodes[newNodeId] = freshnode;
+      return newNodeId;
+    };
+
+    const rootNodeId = changeNodeId(tree.nodes[tree.rootNodeId],newNodes);
+    return {
+      rootNodeId,
+      nodes: newNodes
+    };
+  }, []);
+
+  const handleClone = (e, id) => {
+    e.preventDefault();
+    const theNode = query.node(id).get();
+    const parentNode = query.node(theNode.data.parent).get();
+    const indexToAdd = parentNode.data.nodes.indexOf(id);
+    const tree = getCloneTree(id);
+    actions.addNodeTree(tree, parentNode.id, indexToAdd + 1);
+
+    setTimeout(function () {
+      actions.deserialize(query.serialize());
+      actions.selectNode(tree.rootNodeId);
+    }, 100);
+  };
   return (
     <>
       {isHover || isActive

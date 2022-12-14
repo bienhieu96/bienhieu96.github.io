@@ -5,7 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import './App.css';
-import './styles/index.scss'
+import './styles/index.scss';
+import "swiper/css/bundle";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
