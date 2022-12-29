@@ -35,18 +35,6 @@ type SlideProps = {
   slidesPerView?: number;
   numberOfslide?: number;
 };
-const SlideDiv = styled.div<any>`
-  width: 100%;
-  height: 500px;
-  > div {
-    height: 500px;
-  }
-  iframe {
-    pointer-events: ${(props) => (props.enabled ? "none" : "auto")};
-    // width:100%!important;
-    // height:100%!important;
-  }
-`;
 export const Slide: UserComponent<SlideProps> = (props: any) => {
   const {
     connectors: { connect },
@@ -66,9 +54,8 @@ export const Slide: UserComponent<SlideProps> = (props: any) => {
     numberOfslide,
     ...otherProps
   } = props;
-  console.log("autoplay", autoplay);
   return (
-    <SlideDiv ref={connect}>
+    <Container {...props} ref={connect}>
       <Swiper
         spaceBetween={30}
         // centeredSlides={true}
@@ -114,7 +101,7 @@ export const Slide: UserComponent<SlideProps> = (props: any) => {
             );
           })}
       </Swiper>
-    </SlideDiv>
+    </Container>
   );
 };
 Slide.craft = {
@@ -123,7 +110,7 @@ Slide.craft = {
     margin: ["5", "0", "5", "0"],
     url: `https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg`,
     width: `100%`,
-    height: `100%`,
+    height: `500px`,
     autoplay: 2,
     effect: "",
     slidesPerView: 1,

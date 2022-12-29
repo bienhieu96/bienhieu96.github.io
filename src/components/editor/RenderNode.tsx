@@ -1,9 +1,14 @@
-import { useNode, useEditor } from '@craftjs/core';
-import { ROOT_NODE } from '@craftjs/utils';
-import React, { useEffect, useRef, useCallback } from 'react';
-import ReactDOM from 'react-dom';
-import styled from 'styled-components';
-import {DeleteOutlined, ArrowUpOutlined, DragOutlined} from '@ant-design/icons'
+import { useNode, useEditor } from "@craftjs/core";
+import { ROOT_NODE } from "@craftjs/utils";
+import React, { useEffect, useRef, useCallback } from "react";
+import ReactDOM from "react-dom";
+import styled from "styled-components";
+import {
+  DeleteOutlined,
+  ArrowUpOutlined,
+  DragOutlined,
+} from "@ant-design/icons";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const IndicatorDiv = styled.div`
   height: 30px;
@@ -33,7 +38,7 @@ const Btn = styled.a`
 export const RenderNode = ({ render }) => {
   const { id } = useNode();
   const { actions, query, isActive } = useEditor((_, query) => ({
-    isActive: query.getEvent('selected').contains(id),
+    isActive: query.getEvent("selected").contains(id),
   }));
 
   const {
@@ -53,13 +58,13 @@ export const RenderNode = ({ render }) => {
     parent: node.data.parent,
     props: node.data.props,
   }));
-  
+
   const currentRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
     if (dom) {
-      if (isActive || isHover) dom.classList.add('component-selected');
-      else dom.classList.remove('component-selected');
+      if (isActive || isHover) dom.classList.add("component-selected");
+      else dom.classList.remove("component-selected");
     }
   }, [dom, isActive, isHover]);
 
@@ -84,13 +89,13 @@ export const RenderNode = ({ render }) => {
 
   useEffect(() => {
     document
-      .querySelector('.craftjs-renderer')
-      .addEventListener('scroll', scroll);
+      .querySelector(".craftjs-renderer")
+      .addEventListener("scroll", scroll);
 
     return () => {
       document
-        .querySelector('.craftjs-renderer')
-        .removeEventListener('scroll', scroll);
+        .querySelector(".craftjs-renderer")
+        .removeEventListener("scroll", scroll);
     };
   }, [scroll]);
   const getCloneTree = useCallback((idToClone) => {
@@ -98,7 +103,7 @@ export const RenderNode = ({ render }) => {
     const newNodes = {};
 
     const changeNodeId = (node, newParentId) => {
-      const newNodeId = 'asdasdas';
+      const newNodeId = "asdasdas";
       const childNodes = node.data.nodes.map((childId) =>
         changeNodeId(tree.nodes[childId], newNodeId)
       );
@@ -110,7 +115,7 @@ export const RenderNode = ({ render }) => {
           );
           return {
             ...accum,
-            [id]: newNodeId1
+            [id]: newNodeId1,
           };
         },
         {}
@@ -123,18 +128,18 @@ export const RenderNode = ({ render }) => {
           ...node.data,
           parent: newParentId || node.data.parent,
           nodes: childNodes,
-          linkedNodes
-        }
+          linkedNodes,
+        },
       };
       let freshnode = query.parseFreshNode(tmpNode).toNode();
       newNodes[newNodeId] = freshnode;
       return newNodeId;
     };
 
-    const rootNodeId = changeNodeId(tree.nodes[tree.rootNodeId],newNodes);
+    const rootNodeId = changeNodeId(tree.nodes[tree.rootNodeId], newNodes);
     return {
       rootNodeId,
-      nodes: newNodes
+      nodes: newNodes,
     };
   }, []);
 
@@ -167,7 +172,7 @@ export const RenderNode = ({ render }) => {
               <h2 className="flex-1 mr-4 text-white">{name}</h2>
               {moveable ? (
                 <Btn className="mr-2 cursor-move" ref={drag}>
-                  {/* <Move /> */} <DragOutlined className='font-bold'/>
+                  {/* <Move /> */} <DragOutlined className="font-bold" />
                 </Btn>
               ) : null}
               {id !== ROOT_NODE && (
@@ -177,7 +182,8 @@ export const RenderNode = ({ render }) => {
                     actions.selectNode(parent);
                   }}
                 >
-                  {/* <ArrowUp /> */}<ArrowUpOutlined />
+                  {/* <ArrowUp /> */}
+                  <ArrowUpOutlined />
                 </Btn>
               )}
               {deletable ? (
@@ -188,11 +194,22 @@ export const RenderNode = ({ render }) => {
                     actions.delete(id);
                   }}
                 >
-                  {/* <Delete /> */}<DeleteOutlined />
+                  {/* <Delete /> */}
+                  <DeleteOutlined />
                 </Btn>
               ) : null}
+              <Btn
+                className="cursor-pointer ml-2"
+                onMouseDown={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  handleClone(e, id);
+                }}
+              >
+                {/* <Delete /> */}
+                <ContentCopyIcon />
+              </Btn>
             </IndicatorDiv>,
-            document.querySelector('.page-container')
+            document.querySelector(".page-container")
           )
         : null}
       {render}

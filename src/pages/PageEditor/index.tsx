@@ -16,6 +16,7 @@ import { createTheme } from "@material-ui/core";
 import { Slide } from "src/components/selectors/Slide";
 import { Embeded } from "src/components/selectors/Embeded";
 import { CustomHTML } from "src/components/selectors/CustomHTML";
+import { TwoColumns } from "src/components/selectors/TwoColumns";
 
 const theme = createTheme({
   typography: {
@@ -65,7 +66,8 @@ function PageEditor() {
             Slide,
             TabsComponent,
             Embeded,
-            CustomHTML
+            CustomHTML,
+            TwoColumns
           }}
           enabled={false}
           onRender={RenderNode}

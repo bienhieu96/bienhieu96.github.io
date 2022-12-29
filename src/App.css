@@ -14,13 +14,6 @@ App {
   transform: translate(0px, 0px);
 }
 
-#outer-dropzone {
-  /* height: 300px; */
-}
-
-#inner-dropzone {
-  /* height: 100px; */
-}
 
 .dropzone {
   max-height: 100vh;

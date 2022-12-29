@@ -26,6 +26,7 @@ import HtmlIcon from '@mui/icons-material/Html';
 import ImageIcon from '@mui/icons-material/Image';
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
 import { CustomHTML } from "src/components/selectors/CustomHTML";
+import { TwoColumns } from "src/components/selectors/TwoColumns";
 
 
 const ToolboxDiv = styled.div<{ enabled: boolean }>`
@@ -144,6 +145,13 @@ export const Toolbox = () => {
         </div>
         <div ref={(ref) => create(ref, <CustomHTML />)}>
           <Tooltip title="Custom Code" placement="right">
+            <Item className="toolbox-item" move>
+              <HtmlIcon />
+            </Item>
+          </Tooltip>
+        </div>
+        <div ref={(ref) => create(ref, <TwoColumns />)}>
+          <Tooltip title="Two Columns" placement="right">
             <Item className="toolbox-item" move>
               <HtmlIcon />
             </Item>
